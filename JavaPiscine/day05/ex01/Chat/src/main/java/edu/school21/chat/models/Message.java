@@ -1,0 +1,50 @@
+package edu.school21.chat.models;
+
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Objects;
+
+public class Message {
+    private long id;
+    private User author;
+    private Chatroom room;
+    private String message;
+    private Timestamp date;
+
+    public Message(long id, User author, Chatroom room, String message, Timestamp date) {
+        this.id = id;
+        this.author = author;
+        this.room = room;
+        this.message = message;
+        this.date = date;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Message message1 = (Message) o;
+        return id == message1.id
+                && Objects.equals(author, message1.author)
+                && Objects.equals(room, message1.room)
+                && Objects.equals(message, message1.message)
+                && Objects.equals(date, message1.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, author, room, message, date);
+    }
+
+    @Override
+    public String toString() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        return "Message{\n" +
+                "id=" + id +
+                ",\nauthor=" + author +
+                ",\nroom=" + room +
+                ",\nmessage='" + message + '\'' +
+                ",\ndate=" + format.format(date) +
+                '}';
+    }
+}

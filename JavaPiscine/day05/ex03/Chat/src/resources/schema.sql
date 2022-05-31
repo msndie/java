@@ -1,0 +1,25 @@
+CREATE TABLE "User" (
+	id BIGSERIAL PRIMARY KEY,
+	login TEXT NOT NULL UNIQUE,
+	password TEXT NOT NULL
+);
+
+CREATE TABLE Chatroom (
+	id BIGSERIAL PRIMARY KEY,
+	name TEXT NOT NULL UNIQUE,
+	user_id INT NOT NULL,
+	FOREIGN KEY(user_id)
+		REFERENCES "User"(id)
+);
+
+CREATE TABLE Message (
+	id BIGSERIAL PRIMARY KEY,
+	author_id INT NOT NULL,
+	room_id INT NOT NULL,
+	message_text TEXT NOT NULL,
+	message_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY(author_id)
+		REFERENCES "User"(id),
+	FOREIGN KEY(room_id)
+		REFERENCES Chatroom(id)
+);
